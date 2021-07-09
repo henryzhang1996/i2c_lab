@@ -1,19 +1,4 @@
-[0m[[0m[31merror[0m] [0m[0m/home/jiayizhang/workplace/SpinalTemplateSbt/src/main/scala/mylib/Access.scala:4:26: not found: type Component[0m
-[0m[[0m[31merror[0m] [0m[0m  class TopLevel extends Component {[0m
-[0m[[0m[31merror[0m] [0m[0m                         ^[0m
-[0m[[0m[31merror[0m] [0m[0m/home/jiayizhang/workplace/SpinalTemplateSbt/src/main/scala/mylib/Access.scala:5:19: not found: value Reg[0m
-[0m[[0m[31merror[0m] [0m[0m    val counter = Reg(UInt(8 bits)) init(0) simPublic() // Here we add the simPublic tag on the counter register to make it visible[0m
-[0m[[0m[31merror[0m] [0m[0m                  ^[0m
-[0m[[0m[31merror[0m] [0m[0m/home/jiayizhang/workplace/SpinalTemplateSbt/src/main/scala/mylib/Access.scala:5:23: not found: value UInt[0m
-[0m[[0m[31merror[0m] [0m[0m    val counter = Reg(UInt(8 bits)) init(0) simPublic() // Here we add the simPublic tag on the counter register to make it visible[0m
-[0m[[0m[31merror[0m] [0m[0m                      ^[0m
-[0m[[0m[31merror[0m] [0m[0m/home/jiayizhang/workplace/SpinalTemplateSbt/src/main/scala/mylib/Access.scala:5:30: value bits is not a member of Int[0m
-[0m[[0m[31merror[0m] [0m[0m    val counter = Reg(UInt(8 bits)) init(0) simPublic() // Here we add the simPublic tag on the counter register to make it visible[0m
-[0m[[0m[31merror[0m] [0m[0m                             ^[0m
-[0m[[0m[31merror[0m] [0m[0m/home/jiayizhang/workplace/SpinalTemplateSbt/src/main/scala/mylib/Access.scala:10:15: overloaded method value compile with alternatives:[0m
-[0m[[0m[31merror[0m] [0m[0m  [T <: spinal.core.Component](report: spinal.core.SpinalReport[T])spinal.core.sim.SimCompiled[T] <and>[0m
-[0m[[0m[31merror[0m] [0m[0m  [T <: spinal.core.Component](rtl: => T)spinal.core.sim.SimCompiled[T][0m
-[0m[[0m[31merror[0m] [0m[0m cannot be applied to (SimAccessSubSignal.TopLevel)[0m
-[0m[[0m[31merror[0m] [0m[0m    SimConfig.compile(new TopLevel).doSim{dut =>[0m
-[0m[[0m[31merror[0m] [0m[0m              ^[0m
-[0m[[0m[31merror[0m] [0m[0m5 errors found[0m
+[0m[[0m[31merror[0m] [0m[0m/home/jiayizhang/workplace/i2c_lab/src/main/scala/mylib/I2CSlave.scala:138:13: value sclfall is not a member of spinal.core.Area{val sclFall: spinal.core.Bool; val sclRise: spinal.core.Bool; val sdaFall: spinal.core.Bool; val sdaRise: spinal.core.Bool; val start: spinal.core.Bool; val stop: spinal.core.Bool}[0m
+[0m[[0m[31merror[0m] [0m[0m		when(edge.sclfall){[0m
+[0m[[0m[31merror[0m] [0m[0m		          ^[0m
+[0m[[0m[31merror[0m] [0m[0mone error found[0m

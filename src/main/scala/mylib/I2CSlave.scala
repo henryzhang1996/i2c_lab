@@ -17,11 +17,11 @@ class I2CSlave(g:I2CCtrlGenerics) extends Component{
   val io = new Bundle{
     val configFrame  = in(I2CFrameConfig(g))
     val write        = slave Stream (Bits(8 bit))
-    val read	     =  master Stream (Bits(8 bit))
+    val read	     = master Stream (Bits(8 bit))
     val scl          = in Bool
     val sda_out_en   = out Bool
     val scl_out_en   = out Bool
-    val sda_out      = out Bool
+    val sda_out      = RegInit(True).asOutput
     val sda_in	     = in Bool
   }
   /* temp */
@@ -31,7 +31,7 @@ class I2CSlave(g:I2CCtrlGenerics) extends Component{
   io.read.valid := False
   io.sda_out_en := False
   io.scl_out_en := False
-  io.sda_out := False
+  //io.sda_out := True
 
 
   val edge = new Area {
@@ -47,9 +47,10 @@ class I2CSlave(g:I2CCtrlGenerics) extends Component{
   val sample = new Area {
     /* sda delayed sample */
     val Counter = Reg(UInt(log2Up(g.sampleDelay) bit))
-    val finish = Counter === (g.sampleDelay - 1)
+    val finish_ff = Counter === (g.sampleDelay - 1)
+	val finish = RegNext(finish_ff)
     val Enable = Reg(Bool, False)
-    val value = RegNextWhen(io.sda_in,finish,False)
+    val value = RegNextWhen(io.sda_in,finish_ff,False)
 
     when(edge.sclRise) {
       Enable := True
@@ -116,9 +117,10 @@ class I2CSlave(g:I2CCtrlGenerics) extends Component{
           when(bitCounter.value === 0){
             io.sda_out_en := True
             io.sda_out := !io.write.valid
-          }.otherwise{
+			}
+		}
+		when(sample.finish === True){
             bitCounter.reset()
-            io.sda_out := True
             when(shifter(0) === True){
               when(io.write.valid === True){
                 state := TRANSMIT
@@ -128,13 +130,14 @@ class I2CSlave(g:I2CCtrlGenerics) extends Component{
             }.otherwise{
               state := RECEIVE
             }
-          }
-        }
+         }
       }
 
       is(TRANSMIT){
         io.sda_out_en := True
-        io.sda_out := io.write.payload(7 - bitCounter.value)
+		when(edge.sclFall){
+        	io.sda_out := io.write.payload(7 - bitCounter.value)
+		}
         when(sample.finish === True){
           when(bitCounter.value === 7){
             io.write.ready := True
